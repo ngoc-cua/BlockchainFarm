@@ -13,6 +13,8 @@ const HarvestRoutes = require('./harvestRoutes');
 const CaringRoutes = require('./caringRoutes');
 const ShipmentRoutes = require('./shipmentRoutes');
 const BoxingRoutes = require('./boxingRoutes');
+const RetailerRoutes = require('./retailerRoutes');
+const DeliverRoutes = require('./deliverRoutes');
 const router = express.Router();
 
 router.use('/account', userRoutes);
@@ -23,6 +25,6 @@ router.use('/process', WateringRoutes,
     SowRoutes, FertilizingRoutes, PesticideRoutes,
     PruningRoutes, Fruit_baggingRoutes, HarvestRoutes,CaringRoutes
 )
-router.use('/shipment',ShipmentRoutes,BoxingRoutes)
+router.use('/shipment',ShipmentRoutes,BoxingRoutes,RetailerRoutes,DeliverRoutes)
 
 module.exports = router;

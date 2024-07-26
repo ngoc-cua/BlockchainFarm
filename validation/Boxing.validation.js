@@ -1,20 +1,10 @@
 const Joi = require('joi');
 
-const createBoxingSchema = Joi.object({
-    notes: Joi.string().required().messages({
-        'string.empty': 'Notes are required',
-    }),
-    delivery_code: Joi.string().required().messages({
-        'string.empty': 'Product code is required',
-    })
-});
-const updateBoxingSchema = Joi.object({
-    notes: Joi.string().optional(),
-    delivery_code: Joi.string().optional(),
-    // Add other fields here
+const confirmBoxingSchema = Joi.object({
+    delivery_code: Joi.string().required(),
+    notes: Joi.string().required()
 });
 
 module.exports = {
-    createBoxingSchema,
-    updateBoxingSchema
+    confirmBoxingSchema
 };

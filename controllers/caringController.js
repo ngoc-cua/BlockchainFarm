@@ -39,7 +39,7 @@ class CaringController {
                 Image: imageFile
             };
 
-            const createCaringEntry = await CaringService.createCaring(caringData);
+            const createCaringEntry = CaringService.createCaring(caringData);
             if (!createCaringEntry) {
                 return ResponseHandler.notFound(res, 'Caring entry not found or user unauthorized');
             }

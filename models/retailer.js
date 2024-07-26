@@ -1,14 +1,12 @@
-// models/Watering.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Retailer = sequelize.define('Retailer', {
     id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER
-      },
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   notes: {
     type: DataTypes.STRING,
     allowNull: false
@@ -24,10 +22,16 @@ const Retailer = sequelize.define('Retailer', {
       model: 'Products',
       key: 'product_code'
     }
+  },
+   confirmed: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
   }
 }, {
   tableName: 'retailer',
   timestamps: false,
+  modelName:'Retailer'
 });
 
 module.exports = Retailer;

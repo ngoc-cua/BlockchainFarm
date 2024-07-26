@@ -32,7 +32,7 @@ class CaringService {
 
             return caring;
         } catch (error) {
-            throw new Error('Error creating caring entry: ' + error.message);
+             Error('Error creating caring entry: ' + error.message);
         }
     }
 

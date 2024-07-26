@@ -1,14 +1,12 @@
-// models/Watering.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Boxing = sequelize.define('Boxing', {
-    id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER
-      },
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   notes: {
     type: DataTypes.STRING,
     allowNull: false
@@ -24,6 +22,11 @@ const Boxing = sequelize.define('Boxing', {
       model: 'Shipments',
       key: 'delivery_code'
     }
+  },
+  confirmed: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
   }
 }, {
   tableName: 'boxing',
