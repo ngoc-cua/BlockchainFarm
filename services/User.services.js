@@ -107,7 +107,7 @@ class UserService {
       { userId: user.id, email: email, company_id: companyInfo.id },
       process.env.JWT_SECRET,
       {
-        expiresIn: "7d",
+        expiresIn: "14d",
       }
     );
       return { user, token, email };
