@@ -3,6 +3,6 @@ const { getProduct } = require('../controllers/detailproductController');
 const authenticateToken = require('../utils/authenticateJWT');
 const router = express.Router();
 
-router.get('/product/:product_code', authenticateToken, getProduct);
+router.get('/detailProduct', authenticateToken, getProduct);
 
 module.exports = router;

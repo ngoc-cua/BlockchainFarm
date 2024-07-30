@@ -1,62 +1,64 @@
-const productFertilizingPesticideService = require('../services/productFertilizingPesticideService');
+const ProductFertilizingPesticideService = require('../services/productFertilizingPesticideService');
 
 class ProductFertilizingPesticideController {
-  async create(req, res) {
+  static async create(req, res) {
     try {
-      const entry = await productFertilizingPesticideService.createEntry(req.body);
-      res.status(201).json(entry);
+      const data = req.body;
+      const result = await ProductFertilizingPesticideService.create(data);
+      return res.status(201).json(result);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 
-  async getAll(req, res) {
+  static async findAll(req, res) {
     try {
-      const entries = await productFertilizingPesticideService.getAllEntries();
-      res.status(200).json(entries);
+      const result = await ProductFertilizingPesticideService.findAll();
+      return res.status(200).json(result);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 
-  async getById(req, res) {
+  static async findById(req, res) {
     try {
-      const entry = await productFertilizingPesticideService.getEntryById(req.params.id);
-      if (entry) {
-        res.status(200).json(entry);
-      } else {
-        res.status(404).json({ error: 'Entry not found' });
+      const id = req.params.id;
+      const result = await ProductFertilizingPesticideService.findById(id);
+      if (result) {
+        return res.status(200).json(result);
       }
+      return res.status(404).json({ error: 'Record not found' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 
-  async update(req, res) {
+  static async update(req, res) {
     try {
-      const entry = await productFertilizingPesticideService.updateEntry(req.params.id, req.body);
-      if (entry) {
-        res.status(200).json(entry);
-      } else {
-        res.status(404).json({ error: 'Entry not found' });
+      const id = req.params.id;
+      const data = req.body;
+      const result = await ProductFertilizingPesticideService.update(id, data);
+      if (result) {
+        return res.status(200).json(result);
       }
+      return res.status(404).json({ error: 'Record not found' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 
-  async delete(req, res) {
+  static async delete(req, res) {
     try {
-      const success = await productFertilizingPesticideService.deleteEntry(req.params.id);
-      if (success) {
-        res.status(204).send();
-      } else {
-        res.status(404).json({ error: 'Entry not found' });
+      const id = req.params.id;
+      const result = await ProductFertilizingPesticideService.delete(id);
+      if (result) {
+        return res.status(204).json();
       }
+      return res.status(404).json({ error: 'Record not found' });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      return res.status(500).json({ error: error.message });
     }
   }
 }
 
-module.exports = new ProductFertilizingPesticideController();
+module.exports = ProductFertilizingPesticideController;

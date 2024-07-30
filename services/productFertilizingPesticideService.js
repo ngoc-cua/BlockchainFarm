@@ -1,34 +1,33 @@
-const { ProductFertilizingPesticide } = require('../models/ProductFertilizingPesticide');
+const ProductFertilizingPesticide = require('../models/ProductFertilizingPesticide');
 
 class ProductFertilizingPesticideService {
-  async createEntry(data) {
+  static async create(data) {
     return await ProductFertilizingPesticide.create(data);
   }
 
-  async getAllEntries() {
+  static async findAll() {
     return await ProductFertilizingPesticide.findAll();
   }
 
-  async getEntryById(id) {
+  static async findById(id) {
     return await ProductFertilizingPesticide.findByPk(id);
   }
 
-  async updateEntry(id, data) {
-    const entry = await ProductFertilizingPesticide.findByPk(id);
-    if (entry) {
-      return await entry.update(data);
+  static async update(id, data) {
+    const record = await this.findById(id);
+    if (record) {
+      return await record.update(data);
     }
     return null;
   }
 
-  async deleteEntry(id) {
-    const entry = await ProductFertilizingPesticide.findByPk(id);
-    if (entry) {
-      await entry.destroy();
-      return true;
+  static async delete(id) {
+    const record = await this.findById(id);
+    if (record) {
+      return await record.destroy();
     }
-    return false;
+    return null;
   }
 }
 
-module.exports = new ProductFertilizingPesticideService();
+module.exports = ProductFertilizingPesticideService;

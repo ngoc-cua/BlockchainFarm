@@ -4,12 +4,12 @@ const productFertilizingPesticideController = require('../controllers/productFer
 
 router.post('/create', productFertilizingPesticideController.create);
 
-router.get('/', productFertilizingPesticideController.getAll);
+// router.get('/', productFertilizingPesticideController.getAll);
 
-router.get('/:id', productFertilizingPesticideController.getById);
+// router.get('/:id', productFertilizingPesticideController.getById);
 
-router.put('/:id', productFertilizingPesticideController.update);
+// router.put('/:id', productFertilizingPesticideController.update);
 
-router.delete('/:id', productFertilizingPesticideController.delete);
+// router.delete('/:id', productFertilizingPesticideController.delete);
 
 module.exports = router;
