@@ -18,7 +18,7 @@ class UserController {
         company_name,
         username,
         password,
-        re_password: password,
+        // re_password: password,
         role_id,
       });
       if (error)

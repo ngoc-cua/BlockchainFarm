@@ -7,7 +7,7 @@ class Validator {
       company_name: Joi.string().required(),
       username: Joi.string().required(),
       password: Joi.string().min(6).required(),
-      re_password: Joi.string().required().valid(Joi.ref('password')),
+      // re_password: Joi.string().required().valid(Joi.ref('password')),
       role_id: Joi.number().integer().min(1).max(3).required()
     });
   }
