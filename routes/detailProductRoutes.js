@@ -1,8 +1,8 @@
 const express = require('express');
-const { getProductDetails } = require('../controllers/detailproductController');
+const { getProduct } = require('../controllers/detailproductController');
 const authenticateToken = require('../utils/authenticateJWT');
 const router = express.Router();
 
-router.get('/product/:product_code', authenticateToken, getProductDetails);
+router.get('/product/:product_code', authenticateToken, getProduct);
 
 module.exports = router;

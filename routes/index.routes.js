@@ -16,6 +16,8 @@ const BoxingRoutes = require('./boxingRoutes');
 const RetailerRoutes = require('./retailerRoutes');
 const DeliverRoutes = require('./deliverRoutes');
 const DetailProductRoutes = require('./detailProductRoutes');
+const ProductFertilizingPesticide = require('./productFertilizingPesticideRoutes');
+
 const router = express.Router();
 
 router.use('/account', userRoutes);
@@ -27,5 +29,6 @@ router.use('/process', WateringRoutes,
     PruningRoutes, Fruit_baggingRoutes, HarvestRoutes,CaringRoutes
 )
 router.use('/shipment',ShipmentRoutes,BoxingRoutes,RetailerRoutes,DeliverRoutes)
-router.use('/lookup',DetailProductRoutes)
+router.use('/lookup', DetailProductRoutes)
+router.use('/product_fertilizing_pesticide',ProductFertilizingPesticide)
 module.exports = router;

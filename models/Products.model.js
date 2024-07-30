@@ -25,5 +25,21 @@ Product.init({
   Product_type: DataTypes.INTEGER,
   Product_packing: DataTypes.INTEGER
 }, { sequelize, modelName: 'Product',tableName:'products', timestamps: false });
+ 
+Product.associate = (models) => {
+        Product.belongsTo(models.CompanyInfo, { 
+            foreignKey: 'company_name', 
+            targetKey: 'company_name',
+            as: 'companyInfo' 
+        });
+        Product.hasMany(models.Boxing, { foreignKey: 'product_id' });
+        Product.hasMany(models.Harvest, { foreignKey: 'product_id' });
+        Product.hasMany(models.FruitBagging, { foreignKey: 'product_id' });
+        Product.hasMany(models.Fertilizing, { foreignKey: 'product_id' });
+        Product.hasMany(models.Pesticide, { foreignKey: 'product_id' });
+        Product.hasMany(models.Watering, { foreignKey: 'product_id' });
+        Product.hasMany(models.Shipment, { foreignKey: 'product_id' });
+        Product.hasMany(models.Deliver, { foreignKey: 'product_id' });
+    };
 
 module.exports = Product;

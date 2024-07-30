@@ -2,7 +2,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Pesticide_Name = sequelize.define('Pesticide_Name', {
+const Pesticides_Name = sequelize.define('Pesticides_Name', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -25,7 +25,7 @@ const Pesticide_Name = sequelize.define('Pesticide_Name', {
     allowNull: true
   }
 }, {
-  tableName: 'pesticide_name'
+  tableName: 'pesticides_name'
 });
 
-module.exports = Pesticide_Name;
+module.exports = Pesticides_Name;
