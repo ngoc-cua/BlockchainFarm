@@ -46,4 +46,14 @@ const Shipment = sequelize.define('Shipment', {
     modelName: 'Shipment'
 });
 
+Shipment.associate = (models) => {
+  Shipment.hasMany(models.Boxing, { foreignKey: 'delivery_code', as: 'Boxings' });
+};
+Shipment.associate = models => {
+  Shipment.belongsTo(models.Status, {
+    foreignKey: 'status',
+    as: 'Status'
+  });
+};
+
 module.exports = Shipment;

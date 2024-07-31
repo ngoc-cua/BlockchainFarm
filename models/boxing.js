@@ -32,5 +32,7 @@ const Boxing = sequelize.define('Boxing', {
   tableName: 'boxing',
   timestamps: false,
 });
-
+Boxing.associate = (models) => {
+  Boxing.belongsTo(models.Shipment, { foreignKey: 'delivery_code', as: 'Shipment' });
+};
 module.exports = Boxing;

@@ -17,6 +17,7 @@ const RetailerRoutes = require('./retailerRoutes');
 const DeliverRoutes = require('./deliverRoutes');
 const DetailProductRoutes = require('./detailProductRoutes');
 const ProductFertilizingPesticide = require('./productFertilizingPesticideRoutes');
+const ProductCompany = require('./productCompanyRoutes');
 
 const router = express.Router();
 
@@ -30,5 +31,6 @@ router.use('/process', WateringRoutes,
 )
 router.use('/shipment',ShipmentRoutes,BoxingRoutes,RetailerRoutes,DeliverRoutes)
 router.use('/lookup', DetailProductRoutes)
-router.use('/product_fertilizing_pesticide',ProductFertilizingPesticide)
+router.use('/product_fertilizing_pesticide', ProductFertilizingPesticide)
+router.use('/product_company',ProductCompany)
 module.exports = router;

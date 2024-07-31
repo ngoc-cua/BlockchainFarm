@@ -11,22 +11,25 @@ const Watering = require('../models/watering');
 const Shipment = require('../models/shipment');
 const Retailer = require('../models/retailer');
 const ProductFertilizingPesticide = require('../models/ProductFertilizingPesticide');
+const ProductCompany = require('../models/productcompany');
 const Sequelize = require('sequelize');
 
 async function getProduct(req, res) {
   try {
-    const {query} = req.query;
-    // if (!query) {
-    //   return res.status(400).json({ error: 'Thiếu thông tin truy xuất. Vui lòng cung cấp tham số truy vấn.' });
-    // }
+    const { query } = req.query;
+
+    if (!query) {
+      return res.status(400).json({ error: 'Thiếu thông tin truy xuất. Vui lòng cung cấp tham số truy vấn.' });
+    }
+
     const product = await Product.findOne({
       where: {
         [Sequelize.Op.or]: [
           { product_code: query },
-          { product_name: query }
+          { Name: query }
         ]
       },
-      attributes: ['Product_name', 'Image', 'Product_date', 'certify', 'Description', 'Expiry_date']
+      attributes: ['product_code', 'Name', 'Image', 'Product_date', 'certify', 'Descripion', 'Expiry_date']
     });
 
     if (!product) {
@@ -35,13 +38,13 @@ async function getProduct(req, res) {
 
     const productCode = product.product_code;
 
-    // Kiểm tra mã sản phẩm
-    if (!productCode) {
-      return res.status(500).json({ error: 'Mã sản phẩm không hợp lệ' });
-    }
 
-    const companyInfo = await Company_info.findOne({ where: { product_code: productCode }, attributes: ['Company_name', 'Address', 'Description'] });
-    const boxing = await Boxing.findOne({ where: { product_code: productCode }, attributes: ['notes', 'Image'] });
+ const productcompany = await ProductCompany.findOne({ where: { product_code: productCode } });
+
+    const companyInfo = productcompany && productcompany.company_name
+      ? await Company_info.findOne({ where: { id: productcompany.company_name }, attributes: ['Company_name', 'Address', 'Description'] })
+      : null;
+
     const harvest = await Harvest.findOne({ where: { product_code: productCode }, attributes: ['notes', 'Image'] });
     const fruitBagging = await Fruit_bagging.findOne({ where: { product_code: productCode }, attributes: ['notes', 'Image'] });
     const fertilizing = await Fertilizing.findOne({ where: { product_code: productCode }, attributes: ['notes', 'Image'] });
@@ -52,20 +55,20 @@ async function getProduct(req, res) {
     const fertilizingName = productFP && productFP.fertilizing_name
       ? await Fertilizing_name.findOne({ where: { id: productFP.fertilizing_name }, attributes: ['name', 'effect'] })
       : null;
-
     const pesticideName = productFP && productFP.pesticide_name
       ? await Pesticide_name.findOne({ where: { id: productFP.pesticide_name }, attributes: ['name', 'effect'] })
       : null;
 
     const watering = await Watering.findOne({ where: { product_code: productCode }, attributes: ['notes', 'Image'] });
-    const shipment = await Shipment.findOne({ where: { product_code: productCode }, attributes: ['shipment_date', 'Image', 'status'] });
+    const shipment = await Shipment.findOne({ where: { product_code: productCode }, attributes: ['shipment_date', 'Image'] });
+     const boxing = shipment && shipment.delivery_code
+      ? await Boxing.findOne({ where: { delivery_code: shipment.delivery_code }, attributes: ['notes', 'Image'] })
+      : null;
     const retailer = await Retailer.findOne({ where: { product_code: productCode }, attributes: ['notes', 'Image'] });
 
-    // Trả dữ liệu
     return res.status(200).json({
       product,
       companyInfo,
-      boxing,
       harvest,
       fruitBagging,
       fertilizing,
@@ -74,6 +77,7 @@ async function getProduct(req, res) {
       pesticideName,
       watering,
       shipment,
+      boxing,
       retailer
     });
   } catch (error) {
